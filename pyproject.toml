@@ -1,12 +1,12 @@
 [tool.poetry]
 name = "SQLModel-CRUD-manager"
 version = "0.1.0"
-description = "The code you provided is defining a CRUD (Create, Read, Update, Delete) class that can be used to perform common database operations on a given SQLModel."
+description = "The SQLModel CRUD Manager is a Python library that facilitates common Create, Read, Update, and Delete (CRUD) operations on SQLModel entities within a FastAPI application. This library simplifies database interactions and provides an easy-to-use interface for managing SQLModel entities."
 authors = ["Edkar Chachati <chachati28@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/EChachati/SQLModel-CRUD-manager"
-documentation = "https://github.com/EChachati/SQLModel-CRUD-manager/wiki"
+documentation = "https://github.com/EChachati/SQLModel-CRUD-manager/blob/master/README.md"
 packages = [{include = "sqlmodel-crud-manager"}]
 [tool.poetry.dependencies]
 python = "^3.10"
