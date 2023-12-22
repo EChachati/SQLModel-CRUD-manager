@@ -10,6 +10,8 @@ documentation = "https://github.com/EChachati/python-base-project/blob/master/RE
 
 [tool.poetry.dependencies]
 python = "^3.10"
+fastapi = "^0.105.0"
+sqlmodel = "^0.0.14"
 
 [tool.poetry.group.dev.dependencies]
 ipdb = "^0.13.13"
