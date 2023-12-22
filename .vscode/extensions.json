@@ -1,0 +1,16 @@
+{
+    "recommendations": [
+        "tamasfe.even-better-toml",
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "mintlify.document",
+        "ms-python.black-formatter",
+        "streetsidesoftware.code-spell-checker-spanish",
+        "streetsidesoftware.code-spell-checker",
+        "zeshuaro.vscode-python-poetry",
+        "sonarsource.sonarlint-vscode",
+        "usernamehw.errorlens",
+        "robertostermann.inline-parameters-extended",
+        "mechatroner.rainbow-csv"
+    ]
+}

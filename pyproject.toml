@@ -1,0 +1,66 @@
+[tool.poetry]
+name = "python-base-project"
+version = "0.1.0"
+description = "Almost empty project with configurations, to start whatever you want"
+authors = ["Edkar Chachati <chachati28@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/EChachati/python-base-project"
+documentation = "https://github.com/EChachati/python-base-project/blob/master/README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+ipdb = "^0.13.13"
+ruff = "^0.1.6"
+black = "^23.11.0"
+mypy = "^1.7.1"
+coverage = "^7.3.2"
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+ignore = ["B008", "RUF012"]
+line-length = 100
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "C",   # flake8-comprehensions
+    "B",   # flake8-bugbear
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+    "TID", # flake8-tidy-imports
+    "Q",   # flake8-quotes
+    "UP",  # pyupgrade
+    "PT",  # flake8-pytest-style
+    "RUF", # Ruff-specific rules
+]
+
+[tool.ruff.isort]
+known-third-party = []
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+
+[tool.black]
+line-length = 100
+target-version = ['py311']
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+check_untyped_defs = false
+explicit_package_bases = true
+warn_unused_ignores = false
+exclude = ["tests"]

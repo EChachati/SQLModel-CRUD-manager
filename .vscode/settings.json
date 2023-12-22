@@ -1,0 +1,32 @@
+{
+    "[python]": {
+        "editor.codeActionsOnSave": {
+            "source.fixAll": true,
+            "source.organizeImports": true
+        },
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+    },
+    "ruff.lint.args": [
+        "--config=pyproject.toml"
+    ],
+    "black-formatter.args": [
+        "--config=pyproject.toml"
+    ],
+    "cSpell.language": "en,es",
+    "cSpell.words": [
+        "chartboost",
+        "exitfirst",
+        "pytest",
+        "snok",
+        "stefanzweifel",
+        "venv",
+        "virtualenvs"
+    ],
+    "python.analysis.typeCheckingMode": "off",
+    "docwriter.progress.trackFunctions": true,
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": true,
+    "docwriter.hotkey.windows": "Alt + .",
+    "docwriter.style": "RustDoc",
+}
