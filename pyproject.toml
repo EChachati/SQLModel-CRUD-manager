@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/EChachati/SQLModel-CRUD-manager"
 documentation = "https://github.com/EChachati/SQLModel-CRUD-manager/wiki"
-
+packages = [{include = "sqlmodel-crud-manager"}]
 [tool.poetry.dependencies]
 python = "^3.10"
 fastapi = "^0.105.0"
