@@ -9,7 +9,7 @@ The SQLModel CRUD Manager is a Python library that facilitates common Create, Re
 You can install the SQLModel CRUD Manager using pip:
 
 ```bash
-pip install sqlmodel-crud-manager
+pip install SQLModel-CRUD-manager
 ```
 
 ## Usage
