@@ -1,12 +1,12 @@
 [tool.poetry]
-name = "python-base-project"
+name = "SQLModel-CRUD-manager"
 version = "0.1.0"
-description = "Almost empty project with configurations, to start whatever you want"
+description = "The code you provided is defining a CRUD (Create, Read, Update, Delete) class that can be used to perform common database operations on a given SQLModel."
 authors = ["Edkar Chachati <chachati28@gmail.com>"]
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/EChachati/python-base-project"
-documentation = "https://github.com/EChachati/python-base-project/blob/master/README.md"
+repository = "https://github.com/EChachati/SQLModel-CRUD-manager"
+documentation = "https://github.com/EChachati/SQLModel-CRUD-manager/wiki"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -27,7 +27,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 ignore = ["B008", "RUF012"]
-line-length = 100
+line-length = 88
 select = [
     "E",   # pycodestyle errors
     "W",   # pycodestyle warnings
@@ -56,11 +56,11 @@ ban-relative-imports = "all"
 
 
 [tool.black]
-line-length = 100
-target-version = ['py311']
+line-length = 88
+target-version = ['py312']
 
 [tool.mypy]
-python_version = "3.11"
+python_version = "3.12"
 strict = true
 check_untyped_defs = false
 explicit_package_bases = true
