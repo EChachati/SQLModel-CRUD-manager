@@ -58,12 +58,7 @@ jobs:
       - name: Run tests
         run: |
           source .venv/bin/activate
-          if pytest -k "non_existent_identifier_to_avoid_match" .; then
-            pytest . --exitfirst
-            coverage report
-          else
-            echo "No tests found"
-          fi          
+          coverage run -m pytest
       #----------------------------------------------
       #            save tests results
       #----------------------------------------------
