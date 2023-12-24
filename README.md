@@ -61,6 +61,7 @@ def delete_your_model(pk: int):
 The CRUDManager class provides the following methods:
 
 - `get(pk: int) -> ModelType`: Retrieve an object based on its primary key.
+- `get_by_ids(ids:list[int]) -> list[ModelType]`:  Get a list of records matching the keys sent
 - `list(query: QueryLike = None) -> list[ModelType]`: Get a list of records matching the query.
 - `create(object: ModelCreateType) -> ModelType`: Create a new object in the database.
 - `update(input_object: ModelType) -> ModelType`: Update an object in the database.
