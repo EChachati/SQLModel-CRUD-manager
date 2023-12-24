@@ -1,6 +1,7 @@
 # SQLModel CRUD Manager
 
-[![Tests](https://github.com/EChachati/SQLModel-CRUD-manager/workflows/testing.yml/badge.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/testing.yml)
+[![Tests](https://github.com/EChachati/SQLModel-CRUD-manager/workflows/testing/badge.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/actions)
+
 
 [![pypi](https://img.shields.io/pypi/v/SQLModel-CRUD-manager.svg)](https://pypi.python.org/pypi/SQLModel-CRUD-manager)
 
