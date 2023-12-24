@@ -49,6 +49,16 @@ def test_get(last_id):
     assert hero.is_alive is True
 
 
+def test_get_by_ids(last_id):
+    heroes = crud.get_by_ids([last_id])
+    assert len(heroes) == 1
+    assert heroes[0].id == last_id
+    assert heroes[0].name == HERO_NAME
+    assert heroes[0].secret_name == SECRET_NAME
+    assert heroes[0].age is None
+    assert heroes[0].is_alive is True
+
+
 def test_list(last_id):
     heroes = crud.list()
     assert len(heroes) == 1

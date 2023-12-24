@@ -52,6 +52,25 @@ class CRUDManager:
             )
         return obj
 
+    def get_by_ids(self, ids: list[int]) -> list[ModelType]:
+        """
+        The function retrieves a list of model objects from the database based
+        on their primary keys.
+
+        Arguments:
+
+        * `ids`: The parameter `ids` is a list of integers. It is used to
+        identify a list of objects in the database based on their primary key
+        values.
+
+        Returns:
+
+        The `get_by_ids` method is returning a list of objects of type
+        `ModelType`.
+        """
+        query = select(self.model).where(self.model.id.in_(ids))
+        return self.db.exec(query).all()
+
     def list(self, query: QueryLike = None) -> list[ModelType]:
         """
         The function returns a list of all the records in the database that
