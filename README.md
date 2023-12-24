@@ -1,5 +1,12 @@
 # SQLModel CRUD Manager
 
+[![Tests](https://github.com/EChachati/SQLModel-CRUD-manager/workflows/testing.yml/badge.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/testing.yml)
+
+[![pypi](https://img.shields.io/pypi/v/SQLModel-CRUD-manager.svg)](https://pypi.python.org/pypi/SQLModel-CRUD-manager)
+
+[![versions](https://img.shields.io/pypi/pyversions/SQLModel-CRUD-manager.svg)](https://github.com/EChachati/SQLModel-CRUD-manager)
+[![license](https://img.shields.io/github/license/EChachati/SQLModel-CRUD-manager.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/blob/master/LICENSE)
+
 ## Introduction
 
 The SQLModel CRUD Manager is a Python library that facilitates common Create, Read, Update, and Delete (CRUD) operations on SQLModel entities within a FastAPI application. This library simplifies database interactions and provides an easy-to-use interface for managing SQLModel entities.

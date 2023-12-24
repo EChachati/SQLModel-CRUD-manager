@@ -20,6 +20,7 @@
         "Deadpond",
         "exitfirst",
         "fastapi",
+        "pypi",
         "pytest",
         "snok",
         "sqlite",
