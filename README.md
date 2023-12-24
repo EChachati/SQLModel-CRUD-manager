@@ -1,11 +1,8 @@
 # SQLModel CRUD Manager
 
 [![Tests](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/testing.yml/badge.svg?branch=master)](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/testing.yml)
-
 [![Ruff](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/linter.yml/badge.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/actions/workflows/linter.yml)
-
 [![pypi](https://img.shields.io/pypi/v/SQLModel-CRUD-manager.svg)](https://pypi.python.org/pypi/SQLModel-CRUD-manager)
-
 [![versions](https://img.shields.io/pypi/pyversions/SQLModel-CRUD-manager.svg)](https://github.com/EChachati/SQLModel-CRUD-manager)
 [![license](https://img.shields.io/github/license/EChachati/SQLModel-CRUD-manager.svg)](https://github.com/EChachati/SQLModel-CRUD-manager/blob/master/LICENSE)
 
