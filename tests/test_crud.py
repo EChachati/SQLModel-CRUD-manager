@@ -20,7 +20,7 @@ SECRET_NAME = "Dive Wilson"
 HERO_NAME = "Deadpond"
 
 
-engine = create_engine("sqlite:///tests/testing.db", echo=True)
+engine = create_engine("sqlite:///tests/testing.db")
 SQLModel.metadata.create_all(engine)
 crud = CRUDManager(Hero, engine)
 
