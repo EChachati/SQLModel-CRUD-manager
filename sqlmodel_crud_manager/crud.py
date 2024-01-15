@@ -45,13 +45,12 @@ class CRUDManager:
         """
         self.db = db or self.db
         query = select(self.model).where(self.model.id == pk)
-        obj = self.db.exec(query).one_or_none()
-        if obj is None:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail=f"{self.model} with ID: {pk} Not Found",
-            )
-        return obj
+        if obj := self.db.exec(query).one_or_none():
+            return obj
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"{self.model} with ID: {pk} Not Found",
+        )
 
     def get_by_ids(self, ids: list[int], db: Session = None) -> list[ModelType]:
         """
@@ -72,6 +71,32 @@ class CRUDManager:
         self.db = db or self.db
         query = select(self.model).where(self.model.id.in_(ids))
         return self.db.exec(query).all()
+
+    def get_by_field(self, field: str, value: str, db: Session = None) -> ModelType:
+        """
+        The function retrieves a model object from the database based on a
+        field and a value.
+
+        Arguments:
+
+        * `field`: The parameter `field` is a string that represents the name
+        of a field in the database table.
+
+        * `value`: The parameter `value` is a string that represents the value
+        of a field in the database table.
+
+        Returns:
+
+        The `get_by_field` method is returning an object of type `ModelType`.
+        """
+        self.db = db or self.db
+        query = select(self.model).where(getattr(self.model, field) == value)
+        if obj := self.db.exec(query).one_or_none():
+            return obj
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"{self.model} with {field}: {value} Not Found",
+        )
 
     def list(self, query: QueryLike = None, db: Session = None) -> list[ModelType]:
         """
