@@ -140,3 +140,50 @@ def test_delete(last_id):
     assert hero.is_alive is True
     with pytest.raises(HTTPException):
         crud.get_or_404(last_id)
+
+
+def test_create_or_update(last_id):
+    last_hero: Hero = crud.get(last_id)
+    hero = HeroCreate(name=last_hero.name, secret_name=last_hero.secret_name)
+
+    hero = crud.create_or_update(hero, search_field="name")
+    assert hero.id is not None
+    assert hero.id == last_id
+    assert hero.name == last_hero.name
+
+    hero = HeroCreate(name="NotExistent_", secret_name=SECRET_NAME)
+    hero = crud.create_or_update(hero, search_field="name")
+    assert hero.id is not None
+    assert hero.id != last_id
+    assert hero.name == "NotExistent_"
+
+    hero = HeroCreate(name="NotExistentV2", secret_name=SECRET_NAME)
+    with pytest.raises(HTTPException):
+        crud.create_or_update(hero, search_field="id")
+    with pytest.raises(HTTPException):
+        crud.create_or_update(hero, search_field="NotExistent")
+
+
+def test_create_or_update_by_fields(last_id):
+    last_hero: Hero = crud.get(last_id)
+    hero = HeroCreate(name=last_hero.name, secret_name=last_hero.secret_name)
+    hero = crud.create_or_update_by_fields(
+        hero, {"name": last_hero.name, "secret_name": last_hero.secret_name}
+    )
+    assert hero.id is not None
+    assert hero.id == last_id
+    assert hero.name == last_hero.name
+
+    hero = HeroCreate(name="qwerty", secret_name=SECRET_NAME)
+    hero = crud.create_or_update_by_fields(hero, {"name": "qwerty"})
+    assert hero.id is not None
+    print(last_id)
+    print(hero.id)
+    assert hero.id != last_id
+    assert hero.name == "qwerty"
+
+    hero = HeroCreate(name="NotExistentV2", secret_name=SECRET_NAME)
+    with pytest.raises(HTTPException):
+        crud.create_or_update_by_fields(hero, {"id": 1})
+    with pytest.raises(HTTPException):
+        crud.create_or_update_by_fields(hero, {"NotExistent": "NotExistent"})

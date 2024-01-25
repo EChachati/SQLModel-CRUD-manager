@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import TypeVar
+from typing import List, TypeVar
 
 from fastapi import HTTPException, status
 from sqlalchemy.engine.base import Engine
@@ -281,8 +281,51 @@ class CRUDManager:
             getattr(object, search_field),
             db=db,
         ):
-            object.id = obj.id
-            return self.update(object, db=db)
+            new_object = self.model.model_validate(object)
+            new_object.id = obj.id
+            return self.update(new_object, db=db)
+        else:
+            return self.create(object, db=db)
+
+    def create_or_update_by_fields(
+        self,
+        object: ModelCreateType,
+        fields: List[str],
+        db: Session = None,
+    ) -> ModelType:
+        """
+        The function `create_or_update_by_fields` creates or updates a model object
+        based on specified fields.
+
+        Arguments:
+
+        * `object`: The `object` parameter is the object that you want to create or
+        update in the database. It should be of type `ModelCreateType`, which is the
+        type of the object that can be created in the database.
+        * `fields`: The `fields` parameter is a list of strings that represents
+        the fields (attributes) of the object that are used to check for existing
+        records in the database. These fields are used to query the database and
+        determine if a record with the same values already exists.
+        * `db`: The `db` parameter is an optional argument of type `Session`. It
+        represents the database session that will be used for database operations.
+        If no session is provided, the method will use the default session stored in
+        the `self.db` attribute.
+
+        Returns:
+
+        The function `create_or_update_by_fields` returns a `ModelType` object.
+        """
+        self.db = db or self.db
+        for field in fields:
+            self.__validate_field_exists(field)
+
+        if obj := self.get_by_fields(
+            {field: getattr(object, field) for field in fields},
+            db=db,
+        ):
+            new_object = self.model.model_validate(object)
+            new_object.id = obj.id
+            return self.update(new_object, db=db)
         else:
             return self.create(object, db=db)
 
