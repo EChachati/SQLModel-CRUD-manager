@@ -79,6 +79,21 @@ def test_get_by_field(last_id):
     assert heroes.age is None
     assert heroes.is_alive is True
 
+    heroes_list = crud.get_by_field("name", HERO_NAME, allows_multiple=True)
+    assert heroes_list[0].id == heroes.id
+
+
+def test_get_by_field_or_404(last_id):
+    heroes = crud.get_by_field_or_404("name", HERO_NAME)
+    assert heroes.id == last_id
+    assert heroes.name == HERO_NAME
+    assert heroes.secret_name == SECRET_NAME
+    assert heroes.age is None
+    assert heroes.is_alive is True
+
+    with pytest.raises(HTTPException):
+        crud.get_by_field_or_404("name", "TotallyNotExistent")
+
 
 def test_get_by_fields(last_id):
     heroes = crud.get_by_fields({"name": HERO_NAME, "secret_name": SECRET_NAME})
@@ -87,6 +102,11 @@ def test_get_by_fields(last_id):
     assert heroes.secret_name == SECRET_NAME
     assert heroes.age is None
     assert heroes.is_alive is True
+
+    heroes_list = crud.get_by_fields(
+        {"name": HERO_NAME, "secret_name": SECRET_NAME}, allows_multiple=True
+    )
+    assert heroes_list[0].id == heroes.id
 
 
 def test_get_or_create(last_id):
@@ -124,6 +144,7 @@ def test_update(last_id):
     hero.name = HERO_NAME
     hero.age = 30
     crud.update(hero)
+    hero = crud.get(last_id)
     assert hero.id == last_id
     assert hero.name == HERO_NAME
     assert hero.secret_name == SECRET_NAME
@@ -187,3 +208,82 @@ def test_create_or_update_by_fields(last_id):
         crud.create_or_update_by_fields(hero, {"id": 1})
     with pytest.raises(HTTPException):
         crud.create_or_update_by_fields(hero, {"NotExistent": "NotExistent"})
+
+
+def test_create_multiple():
+    heroes = [
+        HeroCreate(name="Hero1", secret_name="Secret1"),
+        HeroCreate(name="Hero2", secret_name="Secret2"),
+        HeroCreate(name="Hero3", secret_name="Secret3"),
+    ]
+    heroes = crud.create_multiple(heroes)
+    assert len(heroes) == 3
+    assert heroes[0].id is not None
+    assert heroes[0].name == "Hero1"
+    assert heroes[0].secret_name == "Secret1"
+    assert heroes[0].age is None
+    assert heroes[0].is_alive is True
+
+    assert heroes[1].id is not None
+    assert heroes[1].name == "Hero2"
+    assert heroes[1].secret_name == "Secret2"
+    assert heroes[1].age is None
+    assert heroes[1].is_alive is True
+
+    assert heroes[2].id is not None
+    assert heroes[2].name == "Hero3"
+    assert heroes[2].secret_name == "Secret3"
+    assert heroes[2].age is None
+    assert heroes[2].is_alive is True
+
+
+def test_create_or_update_multiple_by_fields():
+    heroes = [
+        HeroCreate(name="Hero1", secret_name="Secret1"),
+        HeroCreate(name="Hero2", secret_name="Secret2"),
+        HeroCreate(name="Hero3", secret_name="Secret3"),
+    ]
+    heroes = crud.create_or_update_multiple_by_fields(heroes, {"name": "Hero1"})
+    assert len(heroes) == 3
+    assert heroes[0].id is not None
+    assert heroes[0].name == "Hero1"
+    assert heroes[0].secret_name == "Secret1"
+    assert heroes[0].age is None
+    assert heroes[0].is_alive is True
+
+    assert heroes[1].id is not None
+    assert heroes[1].name == "Hero2"
+    assert heroes[1].secret_name == "Secret2"
+    assert heroes[1].age is None
+    assert heroes[1].is_alive is True
+
+    assert heroes[2].id is not None
+    assert heroes[2].name == "Hero3"
+    assert heroes[2].secret_name == "Secret3"
+    assert heroes[2].age is None
+    assert heroes[2].is_alive is True
+
+    heroes = [
+        HeroCreate(name="Hero1", secret_name="Secret1"),
+        HeroCreate(name="Hero2", secret_name="Secret2"),
+        HeroCreate(name="Hero4", secret_name="Secret4"),
+    ]
+    heroes = crud.create_or_update_multiple_by_fields(heroes, ["name"])
+    assert len(heroes) == 3
+    assert heroes[0].id is not None
+    assert heroes[0].name == "Hero4"
+    assert heroes[0].secret_name == "Secret4"
+    assert heroes[0].age is None
+    assert heroes[0].is_alive is True
+
+    assert heroes[1].id is not None
+    assert heroes[1].name == "Hero1"
+    assert heroes[1].secret_name == "Secret1"
+    assert heroes[1].age is None
+    assert heroes[1].is_alive is True
+
+    assert heroes[2].id is not None
+    assert heroes[2].name == "Hero2"
+    assert heroes[2].secret_name == "Secret2"
+    assert heroes[2].age is None
+    assert heroes[2].is_alive is True
