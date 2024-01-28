@@ -134,6 +134,35 @@ class CRUDManager:
             return self.db.exec(query).all()
         return self.db.exec(query).one_or_none()
 
+    def get_by_field_or_404(
+        self,
+        field: str,
+        value: str,
+        allows_multiple: bool = False,
+        db: Session = None,
+    ) -> ModelType:
+        """
+        The function retrieves a model object from the database based on a
+        field and a value.
+
+        Arguments:
+
+        * `field`: The parameter `field` is a string that represents the name
+        of a field in the database table.
+
+        * `value`: The parameter `value` is a string that represents the value
+        of a field in the database table.
+
+        Returns:
+
+        The `get_by_field` method is returning an object of type `ModelType`.
+        """
+        if obj := self.get_by_field(field, value, allows_multiple, db=db):
+            return obj
+        self.__raise_not_found(
+            f"{self.model.__name__} with {field} {value} not found",
+        )
+
     def get_by_fields(
         self,
         fields: dict[str, str],

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "SQLModel-CRUD-manager"
-version = "0.1.10"
+version = "0.1.11"
 description = "The SQLModel CRUD Manager is a Python library that facilitates common Create, Read, Update, and Delete (CRUD) operations on SQLModel entities within a FastAPI application. This library simplifies database interactions and provides an easy-to-use interface for managing SQLModel entities."
 authors = ["Edkar Chachati <chachati28@gmail.com>"]
 license = "MIT"
