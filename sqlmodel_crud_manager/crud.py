@@ -338,7 +338,9 @@ class CRUDManager:
         ):
             new_object = self.model.model_validate(object)
             new_object.id = obj.id
-            return self.update(new_object, db=db)
+
+            self.update(new_object, db=db)
+            return new_object
         else:
             return self.create(object, db=db)
 
@@ -380,7 +382,8 @@ class CRUDManager:
         ):
             new_object = self.model.model_validate(object)
             new_object.id = obj.id
-            return self.update(new_object, db=db)
+            self.update(new_object, db=db)
+            return new_object
         else:
             return self.create(object, db=db)
 
