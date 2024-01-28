@@ -387,7 +387,8 @@ class CRUDManager:
         else:
             return self.create(object, db=db)
 
-    def update(self, input_object: ModelType, db: Session = None) -> ModelType:
+
+    def update(self, input_object: ModelType, db: Session = None) -> None:
         """
         The function updates a database object with the values from an input
         object and returns the updated object.
@@ -404,13 +405,48 @@ class CRUDManager:
         updated in the database.
         """
         self.db = db or self.db
-        db_object = self.get(input_object.id)
-        for field in input_object.model_fields:
-            setattr(db_object, field, getattr(input_object, field))
-        self.db.add(db_object)
+        new_values = input_object.model_dump(exclude_unset=True)
+        stmt = (
+            sqlmodel_update(self.model)
+            .where(self.model.id == input_object.id)
+            .values(**new_values)
+        )
+        self.db.exec(stmt)
         self.db.commit()
-        self.db.refresh(db_object)
-        return db_object
+
+    def update_multiple(
+        self,
+        input_objects: List[ModelType],
+        db: Session = None,
+    ) -> List[ModelType]:
+        """
+        The function updates a list of database objects with the values from
+        a list of input objects and returns the updated objects.
+
+        Arguments:
+
+        * `input_objects`: The input_objects parameter is a list of instances
+        of the ModelType class. It represents the objects that contain the
+        updated values for the fields of the database objects.
+
+        Returns:
+
+        The `update_multiple` method is returning a list of `db_objects` after
+        they have been updated in the database.
+        """
+
+        self.db = db or self.db
+        ids = []
+        for input_object in input_objects:
+            self.db.exec(
+                sqlmodel_update(self.model)
+                .where(self.model.id == input_object.id)
+                .values(**input_object.model_dump(exclude_unset=True))
+            )
+            ids.append(input_object.id)
+
+        self.db.commit()
+        return self.get_by_ids(ids)
 
     def delete(self, pk: int, db: Session = None) -> ModelType:
         """
