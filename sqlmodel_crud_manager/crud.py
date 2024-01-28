@@ -274,6 +274,32 @@ class CRUDManager:
         self.db.refresh(obj)
         return obj
 
+    def create_multiple(
+        self,
+        objects: List[ModelCreateType],
+        db: Session = None,
+    ) -> List[ModelType]:
+        """
+        The function creates multiple objects in the database and returns them.
+
+        Arguments:
+
+        * `objects`: The "objects" parameter is a list of objects of type
+        ModelCreateType, which is the type of the objects that you want to
+        create.
+
+        Returns:
+
+        The `create_multiple` method is returning a list of objects of type
+        `ModelType`.
+        """
+        self.db = db or self.db
+        objs = [self.model.model_validate(obj) for obj in objects]
+        self.db.add_all(objs)
+        self.db.commit()
+
+        return objs
+
     def create_or_update(
         self,
         object: ModelCreateType,
